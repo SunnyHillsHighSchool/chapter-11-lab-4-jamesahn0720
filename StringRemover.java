@@ -7,60 +7,35 @@ class StringRemover
    private String remove;
    private String sentence;
 	
-	   public StringRemover() {
+	   public StringRemover(String sen, String rem) {
 
-                 sentence = "";
+                 remove = rem;
 
-                    remove = "";
-
-              }
-
-	public StringRemover( String sentence, String remove)
-	{
-	   this.sentence = sentence;
-
-           this.remove = remove;
-	}
-	
-	 public void setRemover(String s, String rem) {
-
-                    sentence = s;
-
-                     remove = rem;
+                  sentence = sen;
 
               }
 
 	public void removeStrings()
 	{
-		String cleaned = sentence;
+		int index = sentence.indexOf(remove);
+    while(index>=0)
+    {
+      if(index>0)
+      {
+        sentence = sentence.substring(0,index-1)+ sentence.substring(index+remove.length());
+      }else{
+        sentence = sentence.substring(index+remove.length());
+      }
+      index = sentence.indexOf(remove);
 
-                int index = cleaned.indexOf(remove);
-
-                  while (index != -1 && cleaned.length() > 0) {
-
-                  String strBefore = "";
-
-                  if ((index - 1) >= 0) {
-
-                 strBefore = cleaned.substring(0, index - 1);
-
-               } else {
-
-                 strBefore = cleaned.substring(0, index);
-		  }
-			   String strAfter = cleaned.substring(index + remove.length());
-
-                         cleaned = strBefore + strAfter;
-
-                        index = cleaned.indexOf(remove);
-
-                           }
-
-                           return cleaned;
+    }
 	}
 
 	public String toString()
 	{
-		return sentence + " - String to remove" + remove;
+	String s = sentence + " - String to remove "+remove+ " ";
+    removeStrings();
+    s = s+sentence;
+		return s;
 	}
 }
